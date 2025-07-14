@@ -1,5 +1,7 @@
 import React from "react";
 import MapSection from "./MapSection";
+import BusinessStatusBanner from "../components/BusinessStatusBanner";
+import {useBusinessHours} from "../hooks/useBusinessHours";
 
 // --- Datos integrados desde tu data_catalogs.json ---
 const CATEGORIES = [
@@ -430,6 +432,7 @@ const PRODUCTS = [
 
 // --- Component principal ---
 export default function Publicidad() {
+  const { isOpen } = useBusinessHours();
   return (
     <div className="min-h-screen bg-gradient-to-br from-yellow-50 via-white to-yellow-100 dark:from-zinc-900 dark:via-zinc-800 dark:to-zinc-900 text-zinc-800 dark:text-white">
       {/* HEADER */}
@@ -447,25 +450,34 @@ export default function Publicidad() {
         <p className="text-lg md:text-2xl italic font-medium text-yellow-600 dark:text-yellow-200">
            Calidad, servicio e higiene a toda maíz
         </p>
+         {/* Aviso de cerrado */}
+        <BusinessStatusBanner/>
         <div className="flex flex-row gap-4 mt-3">
           <a
             href="https://wa.me/5591646649"
             target="_blank"
             rel="noopener"
-            className="bg-green-600 hover:bg-green-700 text-white text-lg rounded-xl px-8 py-3 font-bold shadow-lg transition"
+             className={`text-lg rounded-xl px-8 py-3 font-bold shadow-lg transition ${
+                isOpen
+                  ? 'bg-green-600 hover:bg-green-700 text-white'
+                  : 'bg-gray-400 text-gray-700 pointer-events-none cursor-not-allowed'
+              }`}
           >
             Pide por WhatsApp
           </a>
         </div>
-        <div className="bg-yellow-200 dark:bg-yellow-900 border-l-4 border-yellow-400 dark:border-yellow-700 rounded-xl p-4 flex gap-3 items-center">
+        <div className="bg-yellow-200 dark:bg-yellow-900 border-l-4 border-yellow-400 dark:border-yellow-700 rounded-xl p-4 gap-3 items-center">
           <svg className="w-7 h-7 text-yellow-600 dark:text-yellow-300 flex-shrink-0" fill="none" stroke="currentColor" strokeWidth={2} viewBox="0 0 24 24">
             <circle cx="12" cy="12" r="10" stroke="currentColor" strokeWidth={2} fill="none" />
             <path strokeLinecap="round" strokeLinejoin="round" d="M12 8v4m0 4h.01" />
           </svg>
-          <span className="text-base text-center">
-            <b>¡Importante!</b> Los pedidos por WhatsApp requieren <b>el pago por adelantado</b> para confirmar tu orden.<br/>
-            <b>Envíos a domicilio con cargo extra, usamos uber flash o recibimos a tu recolector.</b>
-          </span>
+          <div className="text-center text-4xl">
+             <b>¡Importante!</b>
+           </div>
+           <div>
+                Los pedidos por WhatsApp requieren <b>el pago por adelantado</b> para confirmar tu orden.<br/>
+                <b>Envíos a domicilio con cargo extra, usamos uber flash o recibimos a tu recolector.</b>
+            </div>
         </div>
          <div className="flex flex-col items-center mt-10">
             <img
@@ -590,44 +602,8 @@ export default function Publicidad() {
           ))}
         </div>
       </section>
-
-      {/* Contacto, Anticipo, y Pedidos */}
-      <section className="max-w-2xl mx-auto py-8 px-4 flex flex-col gap-4">
-        <div className="bg-yellow-200 dark:bg-yellow-900 border-l-4 border-yellow-400 dark:border-yellow-700 rounded-xl p-4 flex gap-3 items-center">
-          <svg className="w-7 h-7 text-yellow-600 dark:text-yellow-300 flex-shrink-0" fill="none" stroke="currentColor" strokeWidth={2} viewBox="0 0 24 24">
-            <circle cx="12" cy="12" r="10" stroke="currentColor" strokeWidth={2} fill="none" />
-            <path strokeLinecap="round" strokeLinejoin="round" d="M12 8v4m0 4h.01" />
-          </svg>
-          <span className="text-base">
-            <b>¡Importante!</b> Los pedidos por WhatsApp requieren <b>el pago por adelantado</b> para confirmar tu orden.<br/>
-            <b>Envíos a domicilio con cargo extra, usamos uber flash o recibimos a tu recolector.</b>
-          </span>
-        </div>
-        <div className="flex flex-col md:flex-row gap-4 justify-between items-center">
-          <a
-            href="https://wa.me/5591646649"
-            target="_blank"
-            rel="noopener"
-            className="bg-green-600 hover:bg-green-700 text-white text-lg rounded-xl px-8 py-3 font-bold shadow-lg transition"
-          >
-            Pide por WhatsApp
-          </a>
-          <a
-            href="tel:5591646649"
-            className="bg-yellow-500 hover:bg-yellow-600 text-zinc-900 text-md rounded-xl px-6 py-2 font-semibold shadow"
-          >
-            Llama al 55 9164 6649
-          </a>
-        </div>
-        <div className="text-center text-sm mt-2">
-          También puedes pedir y pagar en Uber Eats escaneando el QR o visitar nuestro local.
-        </div>
-      </section>
-
-          {/* UBICACIÓN - CORREGIDA */}
+      {/* UBICACIÓN - CORREGIDA */}
       <section className="max-w-4xl mx-auto py-8 px-4">
-        
-        {/* Opción 1: Botones de navegación (siempre funciona) */}
         <div className="bg-white dark:bg-zinc-800 rounded-2xl shadow-xl p-6 border border-yellow-200 dark:border-yellow-800 mb-6">
             <MapSection/>
         </div>
@@ -638,9 +614,21 @@ export default function Publicidad() {
       <footer className="text-center py-8 px-4">
         <div className="max-w-2xl mx-auto">
           <div className="flex items-center justify-center gap-2 mb-4">
-            <span className="text-3xl">🌽</span>
-            <span className="text-xl font-bold text-yellow-600 dark:text-yellow-400">Maíz de mi Corazón</span>
-            <span className="text-3xl">🌽</span>
+            <h1 className="text-black tracking-wide relative text-xl sm:text-2xl lg:text-3xl drop-shadow-md flex items-center justify-center gap-x-3 sm:gap-x-4">
+              <img
+               src="/mdmc/mdmc_logo.png"
+                alt="Logo Maíz de mi Corazón"
+                className="h-8 sm:h-10 object-contain"
+              />
+              <span className={`cinzel-decorative-regular font-normal`}>
+                  Maíz de mi corazón
+              </span>
+              <img
+               src="/mdmc/mdmc_logo.png"
+                alt="Logo Maíz de mi Corazón"
+                className="h-8 sm:h-10 object-contain"
+              />
+            </h1>
           </div>
           <p className="text-sm text-zinc-500 dark:text-zinc-400">
             &copy; {new Date().getFullYear()} Maíz de mi Corazón · Hecho con amor y sabor mexicano
