@@ -620,7 +620,7 @@ export default function Publicidad() {
                 alt="Logo Maíz de mi Corazón"
                 className="h-8 sm:h-10 object-contain"
               />
-              <span className={`cinzel-decorative-regular font-normal`}>
+              <span className={`cinzel-decorative-regular font-normal text-yellow-700 dark:text-yellow-300`}>
                   Maíz de mi corazón
               </span>
               <img
@@ -631,7 +631,7 @@ export default function Publicidad() {
             </h1>
           </div>
           <p className="text-sm text-zinc-500 dark:text-zinc-400">
-            &copy; {new Date().getFullYear()} Maíz de mi Corazón · Hecho con amor y sabor mexicano
+            &copy; {new Date().getFullYear()} Maíz de mi Corazón · Calidad, servicio e higiene a toda maíz
           </p>
         </div>
       </footer>
