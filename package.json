@@ -1,5 +1,5 @@
 {
-  "name": "maiz-de-mi-corazon-pos",
+  "name": "maiz-de-mi-corazon",
   "private": true,
   "version": "0.0.0",
   "type": "module",
@@ -30,5 +30,8 @@
     "postcss": "^8.4.31",
     "tailwindcss": "^3.3.6",
     "vite": "^6.3.5"
+  },
+  "optionalDependencies": {
+    "@rollup/rollup-linux-x64-gnu": "^4.45.0"
   }
 }
